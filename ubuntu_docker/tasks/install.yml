@@ -19,20 +19,20 @@
     url: "https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/{{ item }}"
     dest: /home/userver/docker-deb
   with_items:
-    - containerd.io_1.6.9-1_amd64.deb
-    - docker-ce-cli_20.10.21~3-0~ubuntu-jammy_amd64.deb
-    - docker-ce_20.10.21~3-0~ubuntu-jammy_amd64.deb 
-    - docker-compose-plugin_2.6.0~ubuntu-jammy_amd64.deb
+    - "{{ docker_apps.containerd }}.deb"
+    - "{{ docker_apps.docker_ce_cli }}.deb"
+    - "{{ docker_apps.docker_ce }}.deb"
+    - "{{ docker_apps.docker_compose }}.deb"
 
 - name: Installing docker components
   shell: |
     cd /home/userver/docker-deb
     dpkg -i "{{ item }}"
   with_items:
-    - containerd.io_1.6.9-1_amd64.deb
-    - docker-ce-cli_20.10.21~3-0~ubuntu-jammy_amd64.deb
-    - docker-ce_20.10.21~3-0~ubuntu-jammy_amd64.deb 
-    - docker-compose-plugin_2.6.0~ubuntu-jammy_amd64.deb
+    - "{{ docker_apps.containerd }}.deb"
+    - "{{ docker_apps.docker_ce_cli }}.deb"
+    - "{{ docker_apps.docker_ce }}.deb"
+    - "{{ docker_apps.docker_compose }}.deb"
 
 - name: Fixing /var/run/docker.sock error
   shell: chmod 666 /var/run/docker.sock
